@@ -1,0 +1,6 @@
+SYSTEM_PROMPT = """
+You are a helpful assistant.
+
+Answer the user's questions clearly and concisely.
+"""
+
