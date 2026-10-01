@@ -40,7 +40,7 @@ agent = create_agent(
     model=chat_model,
     tools=[web_search, arxiv_search, calculator],
     system_prompt=SYSTEM_PROMPT,
-    checkpointer=checkpointer,
+    #checkpointer=checkpointer,
     middleware=[
         ToolCallLimitMiddleware(
             run_limit=5,
@@ -66,13 +66,13 @@ result = agent.invoke(
         [
             {
                 "role": "user",
-                "content": "Give the answer to: (434*343)+121",
+                "content": "Give information about the rienforcement learning paper in Jan 2026",
             }
         ]
     },
     config={
         "configurable": {
-            "thread_id": "research-session-1"
+            "thread_id": "research-session-2"
         }
     },
 )
