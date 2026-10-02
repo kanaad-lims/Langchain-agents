@@ -1,4 +1,5 @@
 from langchain.agents.middleware import AgentMiddleware
+from langchain_core.messages import ToolMessage
 
 class InputGuardrails(AgentMiddleware):
 
@@ -24,4 +25,24 @@ class OutputGuardrails(AgentMiddleware):
         print("OUTPUT GUARDRAIL ACTIVE")
         return None
 
+class ToolGuardrails(AgentMiddleware):
 
+    def wrap_tool_call(self, request, handler):
+
+        tool_name = request.tool_call["name"]
+        banned_tools = ["delete_files"]
+
+        print(f"[GUARDRAIL] Tool requested: {tool_name}")
+
+        # Block dangerous tool calls
+        if tool_name in banned_tools:
+            print("[GUARDRAIL] Blocked")
+
+            return ToolMessage(
+                content="Tool call blocked by security policy!",
+                tool_call_id = request.tool_call["id"]
+            )
+
+        print("[GUARDRAIL] Allowed!")
+
+        return handler(request)
