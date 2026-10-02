@@ -17,3 +17,11 @@ class InputGuardrails(AgentMiddleware):
 
         return None
 
+
+class OutputGuardrails(AgentMiddleware):
+
+    def after_agent(self, state, runtime):
+        print("OUTPUT GUARDRAIL ACTIVE")
+        return None
+
+
